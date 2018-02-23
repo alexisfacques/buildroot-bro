@@ -1,0 +1,121 @@
+diff -ruN bro-2.5.3/aux/binpac/cmake/ProhibitInSourceBuild.cmake bro-2.5.3-1/aux/binpac/cmake/ProhibitInSourceBuild.cmake
+--- bro-2.5.3/aux/binpac/cmake/ProhibitInSourceBuild.cmake	2018-02-14 16:30:37.000000000 +0100
++++ bro-2.5.3-1/aux/binpac/cmake/ProhibitInSourceBuild.cmake	2018-02-16 13:42:39.121047235 +0100
+@@ -1,6 +1,6 @@
+ # Prohibit in-source builds.
+ if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
+-    message(FATAL_ERROR "In-source builds are not allowed. Please use "
++    message(STATUS "In-source builds are not allowed. Please use "
+                         "./configure to choose a build directory and "
+                         "initialize the build configuration.")
+ endif ()
+diff -ruN bro-2.5.3/aux/bro-aux/cmake/ProhibitInSourceBuild.cmake bro-2.5.3-1/aux/bro-aux/cmake/ProhibitInSourceBuild.cmake
+--- bro-2.5.3/aux/bro-aux/cmake/ProhibitInSourceBuild.cmake	2018-02-14 16:30:38.000000000 +0100
++++ bro-2.5.3-1/aux/bro-aux/cmake/ProhibitInSourceBuild.cmake	2018-02-16 13:43:00.592690180 +0100
+@@ -1,6 +1,6 @@
+ # Prohibit in-source builds.
+ if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
+-    message(FATAL_ERROR "In-source builds are not allowed. Please use "
++    message(STATUS "In-source builds are not allowed. Please use "
+                         "./configure to choose a build directory and "
+                         "initialize the build configuration.")
+ endif ()
+diff -ruN bro-2.5.3/aux/broccoli/bindings/broccoli-python/cmake/ProhibitInSourceBuild.cmake bro-2.5.3-1/aux/broccoli/bindings/broccoli-python/cmake/ProhibitInSourceBuild.cmake
+--- bro-2.5.3/aux/broccoli/bindings/broccoli-python/cmake/ProhibitInSourceBuild.cmake	2018-02-14 16:30:44.000000000 +0100
++++ bro-2.5.3-1/aux/broccoli/bindings/broccoli-python/cmake/ProhibitInSourceBuild.cmake	2018-02-16 13:44:46.838924717 +0100
+@@ -1,6 +1,6 @@
+ # Prohibit in-source builds.
+ if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
+-    message(FATAL_ERROR "In-source builds are not allowed. Please use "
++    message(STATUS "In-source builds are not allowed. Please use "
+                         "./configure to choose a build directory and "
+                         "initialize the build configuration.")
+ endif ()
+diff -ruN bro-2.5.3/aux/broccoli/bindings/broccoli-ruby/cmake/ProhibitInSourceBuild.cmake bro-2.5.3-1/aux/broccoli/bindings/broccoli-ruby/cmake/ProhibitInSourceBuild.cmake
+--- bro-2.5.3/aux/broccoli/bindings/broccoli-ruby/cmake/ProhibitInSourceBuild.cmake	2018-02-14 16:30:45.000000000 +0100
++++ bro-2.5.3-1/aux/broccoli/bindings/broccoli-ruby/cmake/ProhibitInSourceBuild.cmake	2018-02-16 13:44:30.683193033 +0100
+@@ -1,6 +1,6 @@
+ # Prohibit in-source builds.
+ if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
+-    message(FATAL_ERROR "In-source builds are not allowed. Please use "
++    message(STATUS "In-source builds are not allowed. Please use "
+                         "./configure to choose a build directory and "
+                         "initialize the build configuration.")
+ endif ()
+diff -ruN bro-2.5.3/aux/broccoli/cmake/ProhibitInSourceBuild.cmake bro-2.5.3-1/aux/broccoli/cmake/ProhibitInSourceBuild.cmake
+--- bro-2.5.3/aux/broccoli/cmake/ProhibitInSourceBuild.cmake	2018-02-14 16:30:45.000000000 +0100
++++ bro-2.5.3-1/aux/broccoli/cmake/ProhibitInSourceBuild.cmake	2018-02-16 13:43:08.600557040 +0100
+@@ -1,6 +1,6 @@
+ # Prohibit in-source builds.
+ if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
+-    message(FATAL_ERROR "In-source builds are not allowed. Please use "
++    message(STATUS "In-source builds are not allowed. Please use "
+                         "./configure to choose a build directory and "
+                         "initialize the build configuration.")
+ endif ()
+diff -ruN bro-2.5.3/aux/broctl/aux/capstats/cmake/ProhibitInSourceBuild.cmake bro-2.5.3-1/aux/broctl/aux/capstats/cmake/ProhibitInSourceBuild.cmake
+--- bro-2.5.3/aux/broctl/aux/capstats/cmake/ProhibitInSourceBuild.cmake	2018-02-14 16:30:59.000000000 +0100
++++ bro-2.5.3-1/aux/broctl/aux/capstats/cmake/ProhibitInSourceBuild.cmake	2018-02-16 13:45:14.382467384 +0100
+@@ -1,6 +1,6 @@
+ # Prohibit in-source builds.
+ if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
+-    message(FATAL_ERROR "In-source builds are not allowed. Please use "
++    message(STATUS "In-source builds are not allowed. Please use "
+                         "./configure to choose a build directory and "
+                         "initialize the build configuration.")
+ endif ()
+diff -ruN bro-2.5.3/aux/broctl/aux/pysubnettree/cmake/ProhibitInSourceBuild.cmake bro-2.5.3-1/aux/broctl/aux/pysubnettree/cmake/ProhibitInSourceBuild.cmake
+--- bro-2.5.3/aux/broctl/aux/pysubnettree/cmake/ProhibitInSourceBuild.cmake	2018-02-14 16:31:00.000000000 +0100
++++ bro-2.5.3-1/aux/broctl/aux/pysubnettree/cmake/ProhibitInSourceBuild.cmake	2018-02-16 13:45:27.766245212 +0100
+@@ -1,6 +1,6 @@
+ # Prohibit in-source builds.
+ if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
+-    message(FATAL_ERROR "In-source builds are not allowed. Please use "
++    message(STATUS "In-source builds are not allowed. Please use "
+                         "./configure to choose a build directory and "
+                         "initialize the build configuration.")
+ endif ()
+diff -ruN bro-2.5.3/aux/broctl/aux/trace-summary/cmake/ProhibitInSourceBuild.cmake bro-2.5.3-1/aux/broctl/aux/trace-summary/cmake/ProhibitInSourceBuild.cmake
+--- bro-2.5.3/aux/broctl/aux/trace-summary/cmake/ProhibitInSourceBuild.cmake	2018-02-14 16:31:01.000000000 +0100
++++ bro-2.5.3-1/aux/broctl/aux/trace-summary/cmake/ProhibitInSourceBuild.cmake	2018-02-16 13:45:41.006025462 +0100
+@@ -1,6 +1,6 @@
+ # Prohibit in-source builds.
+ if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
+-    message(FATAL_ERROR "In-source builds are not allowed. Please use "
++    message(STATUS "In-source builds are not allowed. Please use "
+                         "./configure to choose a build directory and "
+                         "initialize the build configuration.")
+ endif ()
+diff -ruN bro-2.5.3/aux/broctl/cmake/ProhibitInSourceBuild.cmake bro-2.5.3-1/aux/broctl/cmake/ProhibitInSourceBuild.cmake
+--- bro-2.5.3/aux/broctl/cmake/ProhibitInSourceBuild.cmake	2018-02-14 16:31:01.000000000 +0100
++++ bro-2.5.3-1/aux/broctl/cmake/ProhibitInSourceBuild.cmake	2018-02-16 13:43:17.068416265 +0100
+@@ -1,6 +1,6 @@
+ # Prohibit in-source builds.
+ if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
+-    message(FATAL_ERROR "In-source builds are not allowed. Please use "
++    message(STATUS "In-source builds are not allowed. Please use "
+                         "./configure to choose a build directory and "
+                         "initialize the build configuration.")
+ endif ()
+diff -ruN bro-2.5.3/aux/broker/cmake/ProhibitInSourceBuild.cmake bro-2.5.3-1/aux/broker/cmake/ProhibitInSourceBuild.cmake
+--- bro-2.5.3/aux/broker/cmake/ProhibitInSourceBuild.cmake	2018-02-14 16:31:02.000000000 +0100
++++ bro-2.5.3-1/aux/broker/cmake/ProhibitInSourceBuild.cmake	2018-02-16 13:43:25.640273774 +0100
+@@ -1,6 +1,6 @@
+ # Prohibit in-source builds.
+ if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
+-    message(FATAL_ERROR "In-source builds are not allowed. Please use "
++    message(STATUS "In-source builds are not allowed. Please use "
+                         "./configure to choose a build directory and "
+                         "initialize the build configuration.")
+ endif ()
+diff -ruN bro-2.5.3/cmake/ProhibitInSourceBuild.cmake bro-2.5.3-1/cmake/ProhibitInSourceBuild.cmake
+--- bro-2.5.3/cmake/ProhibitInSourceBuild.cmake	2018-02-14 16:31:02.000000000 +0100
++++ bro-2.5.3-1/cmake/ProhibitInSourceBuild.cmake	2018-02-16 13:43:53.503810699 +0100
+@@ -1,6 +1,6 @@
+ # Prohibit in-source builds.
+ if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
+-    message(FATAL_ERROR "In-source builds are not allowed. Please use "
++    message(STATUS "In-source builds are not allowed. Please use "
+                         "./configure to choose a build directory and "
+                         "initialize the build configuration.")
+ endif ()

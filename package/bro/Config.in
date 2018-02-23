@@ -1,0 +1,13 @@
+config BR2_PACKAGE_BRO
+    bool "bro"
+    # Bro uses <fts.h> which is somehow not included. So we need a toolchain w/ GLIBC which includes it.
+    #depends on BR2_TOOLCHAIN_BUILDROOT
+    #depends on BR2_TOOLCHAIN_BUILDROOT_GLIBC
+    select BR2_PACKAGE_LIBPCAP
+    select BR2_PACKAGE_BIND
+    select BR2_PACKAGE_OPENSSL
+    select BR2_PACKAGE_PYTHON
+    select BR2_PACKAGE_ZLIB
+    help
+      Bro is a powerful network analysis framework
+      see http://www.bro-ids.org/downloads/release/

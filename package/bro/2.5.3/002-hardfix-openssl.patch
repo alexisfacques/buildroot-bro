@@ -1,0 +1,32 @@
+--- bro-2.5.3/cmake/OpenSSLTests.cmake	2018-02-16 13:57:47.330014052 +0100
++++ bro-2.5.3-1/cmake/OpenSSLTests.cmake	2018-02-16 13:58:03.021755396 +0100
+@@ -68,27 +68,9 @@
+     if (NOT OPENSSL_D2I_X509_USES_CHAR)
+         message(FATAL_ERROR
+             "Can't determine if openssl_d2i_x509() takes const char parameter")
+-    endif ()
+-endif ()
+-
+-check_c_source_runs("
+-    #include <stdio.h>
+-    #include <openssl/opensslv.h>
+-    #include <openssl/crypto.h>
+-    int main() {
+-        printf(\"-- OpenSSL Library version: %s\\\\n\", SSLeay_version(SSLEAY_VERSION));
+-        printf(\"-- OpenSSL Header version: %s\\\\n\", OPENSSL_VERSION_TEXT);
+-        if (SSLeay() == OPENSSL_VERSION_NUMBER) {
+-            return 0;
+-        }
+-        return -1;
+-    }
+-" OPENSSL_CORRECT_VERSION_NUMBER )
+-
+-if (NOT OPENSSL_CORRECT_VERSION_NUMBER)
+-    message(FATAL_ERROR
+-        "OpenSSL library version does not match headers")
++    endif()
+ endif ()
+
++set(OPENSSL_CORRECT_VERSION_NUMBER_EXITCODE 0 CACHE STRING "Result from TRY_RUN" FORCE)
+ set(CMAKE_REQUIRED_INCLUDES)
+ set(CMAKE_REQUIRED_LIBRARIES)

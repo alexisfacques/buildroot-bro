@@ -1,13 +1,30 @@
 config BR2_PACKAGE_BRO
-    bool "bro"
-    # Bro uses <fts.h> which is somehow not included. So we need a toolchain w/ GLIBC which includes it.
-    #depends on BR2_TOOLCHAIN_BUILDROOT
-    #depends on BR2_TOOLCHAIN_BUILDROOT_GLIBC
-    select BR2_PACKAGE_LIBPCAP
-    select BR2_PACKAGE_BIND
-    select BR2_PACKAGE_OPENSSL
-    select BR2_PACKAGE_PYTHON
-    select BR2_PACKAGE_ZLIB
+  bool "Bro"
+  select BR2_PACKAGE_LIBPCAP
+  select BR2_PACKAGE_BIND
+  select BR2_PACKAGE_OPENSSL
+  select BR2_PACKAGE_PYTHON
+  select BR2_PACKAGE_ZLIB
+  help
+    Bro is a powerful network analysis framework
+    see http://www.bro-ids.org/downloads/release/
+    Bro requires <fts.h> which is somehow not included by default with uclibc.
+    Please make sure to select it from the uclibc menuconfig, or use GLIBC :
+    UCLIBC_HAS_FTS=y
+
+if BR2_PACKAGE_BRO
+
+  config BR2_PACKAGE_BRO_BROCCOLI
+    bool "Broccoli"
     help
-      Bro is a powerful network analysis framework
-      see http://www.bro-ids.org/downloads/release/
+      Enable Broccoli communication library for Bro.
+
+  if BR2_PACKAGE_BRO_BROCCOLI
+    config BR2_PACKAGE_BRO_BROCCOLI_BINDINGS
+      bool "Python bindings for Broccoli"
+      default y
+      help
+        Install Python bindings for Broccoli.
+    endif
+
+endif

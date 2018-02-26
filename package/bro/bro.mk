@@ -30,11 +30,11 @@ CMAKE_CONFIG_OPTS += \
 	-DINSTALL_BROCTL=false \
 	-DINSTALL_AUX_TOOLS=false \
 	-DDISABLE_PERFTOOLS=true \
+	-DENABLE_BROKER=false \
+	-DDISABLE_PYBROKER=true 
 	# Adding optional configuration for Broker would require the creation of an
 	# additional C++ Actor Framework package for Buildroot. Not sure about the
 	# benefits of using Broker over Broccoli.
-	-DENABLE_BROKER=false \
-	-DDISABLE_PYBROKER=true
 
 ################################################################################
 # HOOKS
@@ -58,45 +58,37 @@ define BRO_COPY_HOST_BIFCL_BINPAC
 				$(HOST_DIR)$(CMAKE_INSTALL_PREFIX)/bin/binpac
 endef
 
-# Following hook will install broccoli to the host if required. Python-bindings
-# to be copied to the target.
-define BRO_INSTALL_HOST_BROCCOLI
-	$(MAKE) -C $(@D)/aux/broccoli
-	$(MAKE) -C $(@D)/aux/broccoli install
-endef
-
-# Following hook will copy python-bindings from the host to the target.
-define BRO_COPY_HOST_BROCCOLI_BINDINGS
-	cp -rf $(HOST_DIR)$(CMAKE_INSTALL_PREFIX)/lib/python \
-				$(TARGET_DIR)$(CMAKE_INSTALL_PREFIX)/lib/python
-endef
-
 ################################################################################
 # OPTIONAL DEPENDENCIES
 ################################################################################
 
 # Whether or not we install Broccoli on the target.
 ifeq ($(BR2_PACKAGE_BRO_BROCCOLI),y)
-	CMAKE_CONFIG_OPTS += \
+
+	BRO_CONF_OPTS += \
 		-DINSTALL_BROCCOLI=true \
 		-DBRO_SYSCONF_FILE=$(@D)/aux/broccoli/broccoli.conf
+
 else
-	CMAKE_CONFIG_OPTS += -DINSTALL_BROCCOLI=false
+
+	BRO_CONF_OPTS += -DINSTALL_BROCCOLI=false
+
 endif
 
 # Whether or not we install Broccoli Python bindings on the target.
 ifeq ($(BR2_PACKAGE_BRO_BROCCOLI_BINDINGS),y)
-	# Building python bindings requires SWIG.
-	HOST_BRO_DEPENDENCIES += host-swig
-	#Trivial target dependency.
-	BRO_DEPENDENCIES += python
-	# We'll be building bindings on host and copying them to target afterwards.
-	HOST_BRO_CONF_OPTS += -DDISABLE_PYTHON_BINDINGS=false
-	HOST_BRO_POST_BUILD_HOOKS += BRO_INSTALL_HOST_BROCCOLI
-	# Copying bindings to the target.
-	BRO_POST_INSTALL_TARGET_HOOKS += BRO_COPY_HOST_BROCCOLI_BINDINGS
+
+	BRO_DEPENDENCIES += host-swig python
+
+	BRO_CONF_OPTS += \
+		-DTARGET_PYTHON_EXECUTABLE=$(STAGING_DIR)/usr/bin/python-2 \
+		-DTARGET_PYTHON_CONFIG=$(STAGING_DIR)/usr/bin/python-config \
+		-DDISABLE_PYTHON_BINDINGS=false
+
 else
-	HOST_BRO_CONF_OPTS += -DDISABLE_PYTHON_BINDINGS=true
+
+	BRO_CONF_OPTS += -DDISABLE_PYTHON_BINDINGS=true
+
 endif
 
 ################################################################################
@@ -105,13 +97,12 @@ endif
 
 HOST_BRO_CONF_OPTS += \
 	-DCMAKE_INSTALL_PREFIX=$(HOST_DIR)$(CMAKE_INSTALL_PREFIX) \
+	-DINSTALL_BROCCOLI=false \
 	$(CMAKE_CONFIG_OPTS)
 
 HOST_BRO_POST_BUILD_HOOKS += BRO_COPY_HOST_BIFCL_BINPAC
 
-# Don't install host-bro. We just need to compile and import bifcl and binpac,
-# as well as install and import optional modules such as python-bindings for
-# Broccoli, using post-build hooks.
+# Don't install host-bro. We just need to compile and import bifcl and binpac.
 # Therefore only run 'true' and do nothing, not even the default action.
 HOST_BRO_INSTALL_CMDS = true
 
@@ -125,9 +116,6 @@ BRO_CONF_OPTS += \
 	-DBINPAC_HOST=$(HOST_DIR)$(CMAKE_INSTALL_PREFIX)/bin/binpac \
 	-DCMAKE_CXX_FLAGS=-Os \
 	-DCMAKE_C_FLAGS=-Os \
-	# Bindings to be always disabled for target intallation. Will be copied from
-	# host if required.
-	-DDISABLE_PYTHON_BINDINGS=true \
 	$(CMAKE_CONFIG_OPTS)
 
 BRO_POST_CONFIGURE_HOOKS += BRO_MKDIR_BUILD
@@ -136,7 +124,6 @@ BRO_INSTALL_CMDS = $(MAKE) -C $(@D) install
 
 define BRO_PERMISSIONS
 		$(CMAKE_INSTALL_PREFIX)/bin/bro f 4755 0 0 - - - - -
-		/usr/bin/bro f 4755 0 0 - - - - -
 endef
 
 $(eval $(cmake-package))

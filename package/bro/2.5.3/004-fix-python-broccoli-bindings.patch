@@ -1,0 +1,17 @@
+--- bro-2.5.3/aux/broccoli/bindings/broccoli-python/cmake/FindPythonDev.cmake	2018-02-14 16:30:44.000000000 +0100
++++ bro-2.5.3-fix/aux/broccoli/bindings/broccoli-python/cmake/FindPythonDev.cmake	2018-02-26 15:01:14.719212441 +0100
+@@ -22,6 +22,14 @@
+
+ include(FindPackageHandleStandardArgs)
+
++if (TARGET_PYTHON_EXECUTABLE)
++    get_filename_component(PYTHON_EXECUTABLE "${TARGET_PYTHON_EXECUTABLE}" REALPATH)
++endif()
++
++if(TARGET_PYTHON_CONFIG)
++    set(PYTHON_CONFIG ${TARGET_PYTHON_CONFIG} CACHE PATH "" FORCE)
++endif()
++
+ if (PYTHON_EXECUTABLE)
+     # Get the real path so that we can reliably find the correct python-config
+     # (e.g. some systems may have a "python" symlink, but not a "python-config"

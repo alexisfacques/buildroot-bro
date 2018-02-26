@@ -22,6 +22,7 @@ if BR2_PACKAGE_BRO
   if BR2_PACKAGE_BRO_BROCCOLI
     config BR2_PACKAGE_BRO_BROCCOLI_BINDINGS
       bool "Python bindings for Broccoli"
+      select BR2_PACKAGE_SWIG
       default y
       help
         Install Python bindings for Broccoli.

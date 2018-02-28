@@ -3,7 +3,6 @@ config BR2_PACKAGE_BRO
   select BR2_PACKAGE_LIBPCAP
   select BR2_PACKAGE_BIND
   select BR2_PACKAGE_OPENSSL
-  select BR2_PACKAGE_PYTHON
   select BR2_PACKAGE_ZLIB
   help
     Bro is a powerful network analysis framework
@@ -21,6 +20,7 @@ if BR2_PACKAGE_BRO
 
   if BR2_PACKAGE_BRO_BROCCOLI
     config BR2_PACKAGE_BRO_BROCCOLI_BINDINGS
+      select BR2_PACKAGE_PYTHON3
       bool "Python bindings for Broccoli"
       select BR2_PACKAGE_SWIG
       default y

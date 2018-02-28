@@ -12,7 +12,7 @@ BRO_INSTALL_STAGING = NO
 BRO_INSTALL_TARGET = YES
 
 HOST_BRO_DEPENDENCIES += \
-	host-flex host-bison host-python host-file host-zlib
+	host-flex host-bison host-python3 host-file host-zlib
 
 BRO_DEPENDENCIES = host-bro libpcap openssl bind zlib
 
@@ -20,18 +20,17 @@ BRO_DEPENDENCIES = host-bro libpcap openssl bind zlib
 # PRECONFIGURABLE OPTIONS
 ################################################################################
 
-CMAKE_INSTALL_PREFIX = /opt/bro
+CMAKE_INSTALL_PREFIX = /home/default/bro
 
 # Common CMAKE options for host and target build.
 CMAKE_CONFIG_OPTS += \
 	-DBRO_ETC_INSTALL_DIR=$(CMAKE_INSTALL_PREFIX)/etc \
 	-DBINARY_PACKAGING_MODE=false \
-	-DENABLE_DEBUG=true \
 	-DINSTALL_BROCTL=false \
 	-DINSTALL_AUX_TOOLS=false \
 	-DDISABLE_PERFTOOLS=true \
 	-DENABLE_BROKER=false \
-	-DDISABLE_PYBROKER=true 
+	-DDISABLE_PYBROKER=true
 	# Adding optional configuration for Broker would require the creation of an
 	# additional C++ Actor Framework package for Buildroot. Not sure about the
 	# benefits of using Broker over Broccoli.
@@ -64,31 +63,22 @@ endef
 
 # Whether or not we install Broccoli on the target.
 ifeq ($(BR2_PACKAGE_BRO_BROCCOLI),y)
-
 	BRO_CONF_OPTS += \
 		-DINSTALL_BROCCOLI=true \
 		-DBRO_SYSCONF_FILE=$(@D)/aux/broccoli/broccoli.conf
-
 else
-
 	BRO_CONF_OPTS += -DINSTALL_BROCCOLI=false
-
 endif
 
 # Whether or not we install Broccoli Python bindings on the target.
 ifeq ($(BR2_PACKAGE_BRO_BROCCOLI_BINDINGS),y)
-
-	BRO_DEPENDENCIES += host-swig python
-
+	BRO_DEPENDENCIES += host-swig python3
 	BRO_CONF_OPTS += \
-		-DTARGET_PYTHON_EXECUTABLE=$(STAGING_DIR)/usr/bin/python-2 \
+		-DTARGET_PYTHON_EXECUTABLE=$(STAGING_DIR)/usr/bin/python3 \
 		-DTARGET_PYTHON_CONFIG=$(STAGING_DIR)/usr/bin/python-config \
 		-DDISABLE_PYTHON_BINDINGS=false
-
 else
-
 	BRO_CONF_OPTS += -DDISABLE_PYTHON_BINDINGS=true
-
 endif
 
 ################################################################################

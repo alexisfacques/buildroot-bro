@@ -1,0 +1,1 @@
+source "$BR2_EXTERNAL_BRO_PATH/package/bro/Config.in"

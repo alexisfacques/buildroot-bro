@@ -1,5 +1,12 @@
+comment "Bro needs a uClibc or glibc toolchain w/ wchar, dynamic library"
+	depends on !BR2_bfin
+	depends on !BR2_USE_WCHAR || BR2_STATIC_LIBS || !(BR2_TOOLCHAIN_USES_UCLIBC || BR2_TOOLCHAIN_USES_GLIBC)
+
 config BR2_PACKAGE_BRO
   bool "Bro"
+  depends on BR2_USE_WCHAR
+	depends on !BR2_STATIC_LIBS
+  depends on BR2_TOOLCHAIN_USES_UCLIBC || BR2_TOOLCHAIN_USES_GLIBC
   select BR2_PACKAGE_LIBPCAP
   select BR2_PACKAGE_BIND
   select BR2_PACKAGE_OPENSSL
@@ -7,9 +14,6 @@ config BR2_PACKAGE_BRO
   help
     Bro is a powerful network analysis framework
     see http://www.bro-ids.org/downloads/release/
-    Bro requires <fts.h> which is somehow not included by default with uclibc.
-    Please make sure to select it from the uclibc menuconfig, or use GLIBC :
-    UCLIBC_HAS_FTS=y
 
 if BR2_PACKAGE_BRO
 
